@@ -22,11 +22,11 @@ export class AnimalService {
     return await this.animalRepository.findAll();
   }
 
-  async findOne(id: number): Promise<Animal> {
+  async findOne(id: string): Promise<Animal> {
     return await this.animalRepository.findOne({ id });
   }
 
-  update(id: number, updateAnimalDto: UpdateAnimalDto): void {
+  update(id: string, updateAnimalDto: UpdateAnimalDto): void {
     this.animalRepository
       .findOneOrFail({ id })
       .then((animal) => {
@@ -39,7 +39,7 @@ export class AnimalService {
       );
   }
 
-  remove(id: number): void {
+  remove(id: string): void {
     this.animalRepository
       .nativeDelete({ id })
       .then(() => console.log(`Remove animal id: ${id} successfully`))

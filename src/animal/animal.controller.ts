@@ -27,20 +27,20 @@ export class AnimalController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: number): Promise<Animal> {
-    return await this.animalService.findOne(+id);
+  async findOne(@Param('id') id: string): Promise<Animal> {
+    return await this.animalService.findOne(id);
   }
 
   @Patch(':id')
   update(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body() updateAnimalDto: UpdateAnimalDto,
   ): void {
-    return this.animalService.update(+id, updateAnimalDto);
+    return this.animalService.update(id, updateAnimalDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: number): void {
-    return this.animalService.remove(+id);
+  remove(@Param('id') id: string): void {
+    return this.animalService.remove(id);
   }
 }
