@@ -5,4 +5,5 @@ export class CreateAnimalDto {
   type: AnimalType;
   price: number;
   age: number;
+  size: number;
 }

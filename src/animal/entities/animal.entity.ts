@@ -1,12 +1,9 @@
-import { Entity, Enum, PrimaryKey, Property } from '@mikro-orm/core';
+import { Entity, Enum, Property } from '@mikro-orm/core';
 import { AnimalType } from '../enum/animalType';
-import { v4 } from 'uuid';
+import { BaseEntity } from 'src/base/entity.base';
 
 @Entity()
-export class Animal {
-  @PrimaryKey()
-  id: string = v4();
-
+export class Animal extends BaseEntity {
   @Property()
   name: string;
 
@@ -17,5 +14,8 @@ export class Animal {
   price: number;
 
   @Property({ nullable: true })
-  age: number;
+  age?: number;
+
+  @Property({ nullable: true })
+  size?: number;
 }

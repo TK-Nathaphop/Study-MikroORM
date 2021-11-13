@@ -23,13 +23,14 @@ export class AnimalService {
   }
 
   async findOne(id: string): Promise<Animal> {
-    return await this.animalRepository.findOne({ id });
+    return await this.animalRepository.findOne(id);
   }
 
   update(id: string, updateAnimalDto: UpdateAnimalDto): void {
     this.animalRepository
       .findOneOrFail({ id })
       .then((animal) => {
+        animal.age = updateAnimalDto.age;
         wrap(animal).assign(updateAnimalDto);
         this.animalRepository.flush();
         console.log(`Update animal id: ${id} successfully`);
@@ -41,8 +42,12 @@ export class AnimalService {
 
   remove(id: string): void {
     this.animalRepository
-      .nativeDelete({ id })
-      .then(() => console.log(`Remove animal id: ${id} successfully`))
+      .findOne(id)
+      .then((animal) =>
+        this.animalRepository
+          .softRemoveAndFlush(animal)
+          .then(() => console.log(`Remove animal id: ${id} successfully`)),
+      )
       .catch((e) =>
         console.log(`Error, cannot remove animal id: ${id} | ${e}`),
       );
