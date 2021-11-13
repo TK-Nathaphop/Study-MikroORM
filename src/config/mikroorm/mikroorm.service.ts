@@ -11,7 +11,7 @@ export class MikroOrmConfigService implements MikroOrmOptionsFactory {
       autoLoadEntities: true,
       filters: {
         softDelete: {
-          cond: { ['deletedAt']: { $eq: null } },
+          cond: { deletedAt: { $eq: null } },
           args: false,
           default: true,
         },
